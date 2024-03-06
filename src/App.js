@@ -3,8 +3,12 @@ import './App.css';
 function App() {
   return (
     <div className='main-container'>
-      {/* password text and copy button */}
+      <div className='header'>
+        <div className='title'>Jmsl47&#@</div>
+        <button className='copyBtn'>copy</button>
+      </div>
       {/* character length */}
+      
       {/* checkboxes */}
       {/* password strength */}
       {/* generate button */}
