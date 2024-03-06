@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./App.css";
 import usePasswordGenerator from "./hooks/use-password-generator";
+import PasswordStrengthChecker from "./components/PasswordStrengthChecker";
 
 function App() {
-  const [length, setLength] = useState(4);
+  const [length, setLength] = useState(0);
   const [copied, setCopied] = useState(false);
   const [checkboxData, setCheckboxData] = useState([
     { title: "Include Uppercase Letters", state: true },
@@ -67,6 +68,7 @@ function App() {
       </div>
 
       {/* password strength */}
+      <PasswordStrengthChecker password={password}/>
 
       {/* error handling */}
 
