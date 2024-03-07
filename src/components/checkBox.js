@@ -1,9 +1,17 @@
 import React from 'react'
 
-const checkBox = () => {
+const CheckBox = ({title,state,onChange}) => {
   return (
-    <div>checkBox</div>
+    <div>
+      <input
+        type="checkbox"
+        className="checkbox"
+        onChange={onChange}
+        checked={state}
+      />
+      <label>{title}</label>
+    </div>
   )
 }
 
-export default checkBox
+export default CheckBox

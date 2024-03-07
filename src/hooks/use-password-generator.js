@@ -3,6 +3,7 @@ import { useState } from "react"
 const usePasswordGenerator = () => {
     const[password, setPassword] = useState("");
     const [error, setError] = useState("");
+    
     const generatePassword = (checkboxData,length) => {
         let charset = "", generatedPassword = "";
 
@@ -18,18 +19,18 @@ const usePasswordGenerator = () => {
             switch(option.title){
                 case "Include Uppercase Letters":
                     charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                    return;
+                    break;
                 case "Include Lowercase Letters":
                     charset += "abcdefghijklmnopqrstuvwxyz";
-                    return;
+                    break;
                 case "Include Numbers":
                     charset += "0123456789";
-                    return;
+                    break;
                 case "Include Symbols":
                     charset += "!@#$%^&*()";
-                    return;
+                    break;
                 default:
-                    return;
+                    break;
             }
         })
 

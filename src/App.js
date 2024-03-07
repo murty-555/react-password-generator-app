@@ -2,18 +2,14 @@ import { useState } from "react";
 import "./App.css";
 import usePasswordGenerator from "./hooks/use-password-generator";
 import PasswordStrengthChecker from "./components/PasswordStrengthChecker";
+import Button from "./components/Button";
+import CheckBox from "./components/CheckBox";
+import { data } from "./utils/checkBoxdata";
 
 function App() {
-  const [length, setLength] = useState(0);
+  const [length, setLength] = useState(4);
   const [copied, setCopied] = useState(false);
-  const [checkboxData, setCheckboxData] = useState([
-    { title: "Include Uppercase Letters", state: true },
-    { title: "Include Lowercase Letters", state: false },
-    { title: "Include Numbers", state: false },
-    { title: "Include Symbols", state: false },
-  ]);
-
-  const { password, error, generatePassword } = usePasswordGenerator();
+  const [checkboxData, setCheckboxData] = useState(data);
 
   const handleCheckbox = (index) => {
     // console.log("changed")
@@ -24,16 +20,25 @@ function App() {
 
   const handleCopy = () => {
     navigator.clipboard.writeText(password);
-    setCopied(true)
-    setTimeout(() => {setCopied(false)},1000)
-  }
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+  };
+
+  const { password, error, generatePassword } = usePasswordGenerator();
 
   return (
     <div className="main-container">
       {password && (
+        // password and copy button
         <div className="header">
-          <div className="title">{password}</div>
-          <button className="copyBtn" onClick={handleCopy}>{copied ? 'copied': 'copy'}</button>
+          <div className="title">Password: {password}</div>
+          <Button
+            text={copied ? "copied" : "copy"}
+            className={"copyBtn"}
+            onClick={handleCopy}
+          />
         </div>
       )}
       {/* character length */}
@@ -55,31 +60,27 @@ function App() {
       {/* checkboxes */}
       <div className="checkBoxes">
         {checkboxData.map((checkbox, i) => (
-          <div key={i}>
-            <input
-              type="checkbox"
-              className="checkbox"
-              onChange={() => handleCheckbox(i)}
-              checked={checkbox.state}
-            />
-            <label>{checkbox.title}</label>
-          </div>
+          <CheckBox
+            key={i}
+            title={checkbox.title}
+            onChange={() => handleCheckbox(i)}
+            state={checkbox.state}
+          />
         ))}
       </div>
 
       {/* password strength */}
-      <PasswordStrengthChecker password={password}/>
+      <PasswordStrengthChecker password={password} />
 
       {/* error handling */}
 
       {error && <div className="errorMsg">{error}</div>}
       {/* generate button */}
-      <button
+      <Button
         className="generateBtn"
+        text="Generate Password"
         onClick={() => generatePassword(checkboxData, length)}
-      >
-        Generate Password
-      </button>
+      />
     </div>
   );
 }
